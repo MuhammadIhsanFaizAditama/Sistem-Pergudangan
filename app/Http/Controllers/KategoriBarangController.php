@@ -12,8 +12,8 @@ class KategoriBarangController extends Controller
      */
     public function index()
     {
-        $kategori = KategoriBarang::paginate(10);
-        return view('kategori.index', compact('kategori'));
+        $kategoriBarang = KategoriBarang::paginate(10);
+        return view('kategori.index', compact('kategoriBarang'));
     }
 
     public function create()

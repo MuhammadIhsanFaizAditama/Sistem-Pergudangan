@@ -3,7 +3,7 @@
 @section('title', 'Login')
 
 @section('content')
-<div class="flex items-center justify-center min-h-screen">
+<div class="flex items-center justify-center min-h-screen px-4">
     <div class="w-full max-w-md bg-white p-8 rounded-lg shadow">
 
         <h1 class="text-2xl font-bold text-center mb-6">
@@ -11,8 +11,9 @@
         </h1>
 
         @if ($errors->any())
-            <div class="mb-4 text-sm text-red-600">
-                {{ $errors->first() }}
+            <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Error!</strong>
+                <span class="block sm:inline">{{ $errors->first() }}</span>
             </div>
         @endif
 

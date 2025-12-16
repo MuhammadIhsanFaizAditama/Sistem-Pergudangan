@@ -9,30 +9,32 @@ class Pembelian extends Model
 {
     use HasFactory;
 
-    protected $table = 'pembelian';
-
+    protected $table = '_pembelian';
+    public $timestamps = true;
 
     protected $fillable = [
         'no_faktur',
         'tanggal',
         'total_harga',
-        'status'
+        'status',
+        'supplier_id',
+        'user_id'
     ];
 
     protected $casts = [
         'tanggal' => 'date',
-        'total_harga' => 'desimal:2',
+        'total_harga' => 'decimal:2',
     ];
 
     public function detailPembelian(){
-        return $this -> hasMany(DetailPembelian::class);
+        return $this->hasMany(DetailPembelian::class, 'pembelian_id');
     }
 
-    public function supllier(){
-        return $this-> belongsTo(Supplier::class);
+    public function supplier(){
+        return $this->belongsTo(Supplier::class, 'supplier_id');
     }
 
     public function user(){
-        return $this -> belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

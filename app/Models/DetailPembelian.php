@@ -10,9 +10,12 @@ class DetailPembelian extends Model
 {
     use HasFactory;
 
-    protected $table = 'detail_pembelian';
+    protected $table = '_detail_pembelian';
+    public $timestamps = true;
 
     protected $fillable = [
+        'pembelian_id',
+        'barang_id',
         'jumlah_beli',
         'harga_satuan',
         'subtotal',
@@ -28,11 +31,11 @@ class DetailPembelian extends Model
 
     public function barang(): BelongsTo
     {
-        return $this->belongsTo(Barang::class);
+        return $this->belongsTo(Barang::class, 'barang_id');
     }
 
     public function pembelian(): BelongsTo
     {
-        return $this->belongsTo(Pembelian::class);
+        return $this->belongsTo(Pembelian::class, 'pembelian_id');
     }
 }

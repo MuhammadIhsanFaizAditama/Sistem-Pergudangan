@@ -9,32 +9,32 @@ class Barang extends Model
 {
     use HasFactory;
 
-    protected $table = 'barang';
-    public $timestamps = false;
+    protected $table = '_barang_table';
+    public $timestamps = true;
 
     protected $fillable = [
-        'nama_barang',
         'kode_barang',
+        'nama_barang',
         'satuan',
-        'harga_beli',
+        'harga_barang',
         'harga_jual',
-        'stok'
+        'stok_sekarang',
+        'kategori_id'
     ];
 
     protected $casts = [
-        'harga_beli' => 'decimal:2',
+        'harga_barang' => 'decimal:2',
         'harga_jual' => 'decimal:2',
-        'stok' => 'integer'
+        'stok_sekarang' => 'integer'
     ];
 
     // Relationships
 
-    public function kategoriBarang(){
-        return $this -> belongsTo(KategoriBarang::class);
+    public function kategori(){
+        return $this->belongsTo(KategoriBarang::class, 'kategori_id');
     }
 
     public function detailPembelian(){
-        return $this -> hasMany(DetailPembelian::class);
+        return $this->hasMany(DetailPembelian::class);
     }
-
 }

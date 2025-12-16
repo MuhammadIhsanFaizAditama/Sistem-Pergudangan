@@ -13,12 +13,12 @@ class SupllierController extends Controller
     public function index()
     {
         $supplier = Supplier::paginate(10);
-        return view('Supplier.index', compact('supplier'));
+        return view('supplier.index', compact('supplier'));
     }
 
     public function create()
     {
-        return view('Supplier.create');
+        return view('supplier.create');
     }
 
     /**
@@ -27,18 +27,18 @@ class SupllierController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_supplier'=> 'required',
+            'nama_supllier'=> 'required',
             'nama_kontak'=> 'nullable',
-            'no_hp'=> 'required'
+            'no_telpon'=> 'required'
         ]);
 
-        Supplier::created($request->all());
-        return redirect()->route('Supplier.index')->with('success','Supplier ditambahkan');
+        Supplier::create($request->all());
+        return redirect()->route('supplier.index')->with('success','Supplier ditambahkan');
     }
 
     public function edit(Supplier $supplier)
     {
-        return view('Supplier.edit', compact('supplier'));
+        return view('supplier.edit', compact('supplier'));
     }
 
     /**
@@ -47,13 +47,13 @@ class SupllierController extends Controller
     public function update(Request $request, Supplier $supplier)
     {
        $request->validate([
-            'nama_supplier'=> 'required',
+            'nama_supllier'=> 'required',
             'nama_kontak'=> 'nullable',
-            'no_hp'=> 'required'
+            'no_telpon'=> 'required'
         ]);
 
         $supplier->update($request->all());
-        return redirect()->route('Supplier.index')->with('success','Supplier diupdate');
+        return redirect()->route('supplier.index')->with('success','Supplier diupdate');
     }
 
     /**
@@ -63,6 +63,6 @@ class SupllierController extends Controller
     {
         $supplier->delete();
 
-        return redirect()->route('Supplier.index')->with('success','Supplier dihapus');
+        return redirect()->route('supplier.index')->with('success','Supplier dihapus');
     }
 }

@@ -13,7 +13,7 @@ class BarangController extends Controller
      */
     public function index()
     {
-        $barang = Barang::with('kategori')->paginate();
+        $barang = Barang::with('kategori')->paginate(10);
         return view('barang.index', compact('barang'));
     }
 
@@ -28,40 +28,43 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        $request -> validate([
-            'nama_barang'=> 'required',
-            'kode_barang'=> 'required|unique:barang',
-            'satuan'=> 'required',
-            'harga_beli'=>'required',
-            'harga_jual,'=>'required',
-            'stok'=>'required'
-
+        $request->validate([
+            'nama_barang' => 'required|string|max:255',
+            'kode_barang' => 'required|string|unique:_barang_table,kode_barang',
+            'satuan' => 'required|string',
+            'harga_barang' => 'required|numeric',
+            'harga_jual' => 'required|numeric',
+            'stok_sekarang' => 'required|integer',
+            'kategori_id' => 'required|exists:_kategori_barang,id'
         ]);
 
-        Barang::created($request->all());
-        return redirect()->route('Barang.index')->with('success','Barang ditambahkan');
+        Barang::create($request->all());
+        return redirect()->route('barang.index')->with('success','Barang ditambahkan');
     }
 
     public function edit(Barang $barang)
     {
-        $kategori = Barang::all();
+        $kategori = KategoriBarang::all();
         return view('barang.edit', compact('barang','kategori'));
     }
+
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Barang $barang)
     {
         $request->validate([
-            'nama_barang'=> 'required',
-            'kode_barang'=> 'required|unique:barang',
-            'satuan'=> 'required',
-            'harga_beli'=>'required',
-            'harga_jual,'=>'required',
-            'stok'=>'required'
+            'nama_barang' => 'required|string|max:255',
+            'kode_barang' => 'required|string|unique:_barang_table,kode_barang,'.$barang->id,
+            'satuan' => 'required|string',
+            'harga_barang' => 'required|numeric',
+            'harga_jual' => 'required|numeric',
+            'stok_sekarang' => 'required|integer',
+            'kategori_id' => 'required|exists:_kategori_barang,id'
         ]);
+        
         $barang->update($request->all());
-        return redirect()->route('Barang.index')->with('success','Barang diupdate');
+        return redirect()->route('barang.index')->with('success','Barang diupdate');
     }
 
     /**
@@ -70,6 +73,6 @@ class BarangController extends Controller
     public function destroy(Barang $barang)
     {
         $barang->delete();
-        return redirect()->route('Barang.index')->with('success','Barang dihapus');
+        return redirect()->route('barang.index')->with('success','Barang dihapus');
     }
 }
