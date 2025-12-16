@@ -17,8 +17,8 @@ return new class extends Migration
             $table->decimal('harga_satuan', 15, 2);
             $table->decimal('subtotal', 15, 2);
 
-            $table->foreignId('pembelian_id')->constrained('pembelian')->onDelete('cascade');
-            $table->foreignId('barang_id')->constrained('barang')->onDelete('cascade');
+            $table->foreignId('pembelian_id')->constrained('_pembelian')->onDelete('cascade');
+            $table->foreignId('barang_id')->constrained('_barang_table')->onDelete('cascade');
             $table->timestamps();
         });
     }

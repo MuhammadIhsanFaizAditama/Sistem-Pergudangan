@@ -18,8 +18,8 @@ return new class extends Migration
             $table->decimal('total_harga', 15, 2)->default(0);
             $table->enum('status', ['pending', 'selesai', 'batal'])->default('pending');
 
-            $table->foreignId('supplier_id')->constrained('_suppliers')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('_users')->onDelete('cascade');
+            $table->foreignId('supplier_id')->constrained('_supplier')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

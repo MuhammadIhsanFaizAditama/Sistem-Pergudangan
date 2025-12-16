@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('_barang', function (Blueprint $table) {
+        Schema::create('_barang_table', function (Blueprint $table) {
             $table->id();
             $table->string('kode_barang')->unique();
             $table->string('nama_barang');
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->decimal('harga_jual',15,2);
             $table->integer('stok_sekarang');
 
-            $table->foreignId('kategori_id')->constrained('_kategori')->onDelete('cascade');
+            $table->foreignId('kategori_id')->constrained('_kategori_barang')->onDelete('cascade');
             $table->timestamps();
         });
     }
