@@ -29,7 +29,7 @@ class PembelianController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'supplier_id' => 'required|exists:supplier,id',
+            'supplier_id' => 'required|exists:_supplier,id',
             'tanggal' => 'required|date',
             'barang_id' => 'required|array',
             'barang_id.*' => 'required|exists:_barang_table,id',

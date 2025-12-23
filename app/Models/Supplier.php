@@ -19,6 +19,11 @@ class Supplier extends Model
         'no_telpon' => 'integer'
     ];
 
+    public function getNamaSupplierAttribute()
+    {
+        return $this->attributes['nama_supllier'];
+    }
+
     public function pembelian(){
         return $this -> hasMany(Pembelian::class);
     }
